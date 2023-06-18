@@ -1,0 +1,44 @@
+{
+    "customers":[
+    {
+        "name": "rizwan shaikh",
+        "account": {
+            "account_no": "189003456",
+            "card": {
+                "no": "23467890",
+                "cvv": "123",
+                "expiry": "2025-10-30"
+            },
+            "amount": 12200
+        }
+    },
+    {
+        "name": "abc xyz",
+        "account": {
+            "account_no": "189003789",
+            "card": {
+                "no": "23467901",
+                "cvv": "972",
+                "expiry": "2027-10-30"
+            },
+            "amount": 1444200
+        }
+    },
+    {
+        "name": "efg ijk",
+        "account": {
+            "account_no": "9999003789",
+            "card": {
+                "no": "23904901",
+                "cvv": "675",
+                "expiry": "2029-10-30"
+            },
+            "amount": 1000000000
+        }
+    }
+
+
+
+
+    ]
+}
