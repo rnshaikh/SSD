@@ -1,0 +1,14 @@
+
+
++ functional Requirements:
+
+1. user can put coins in vending machine
+2. user can select item in vending machine
+3. vending machine will dispense item.
+4. vending machine return change, or item not or insuffienct amount inserted.
+5. vending machine can add items
+6. insert cash in vending machine
+7. take out cash from vending machine.
+
+
+

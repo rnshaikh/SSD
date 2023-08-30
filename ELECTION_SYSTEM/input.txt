@@ -1,0 +1,38 @@
+[
+    {
+        "name": "Amit",
+        "party": "BJP",
+        "votes": 550,
+        "constituency": "c1"
+    },
+    {
+        "name": "Sonia",
+        "party": "Cong",
+        "votes": 450,
+        "constituency": "c1"
+    },
+    {
+        "name": "Narendra",
+        "party": "BJP",
+        "votes": 400,
+        "constituency": "c2"
+    },
+    {
+        "name": "Pawar",
+        "party": "Cong",
+        "votes": 600,
+        "constituency": "c2"
+    },
+    {
+        "name": "Nadda",
+        "party": "BJP",
+        "votes": 350,
+        "constituency": "c3"
+    },
+    {
+        "name": "Rahul",
+        "party": "Cong",
+        "votes": 850,
+        "constituency": "c3"
+    }
+]
