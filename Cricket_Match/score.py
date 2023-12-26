@@ -1,10 +1,13 @@
 
+from over import Over
+
 
 class Score:
 
 	def __init__(self):
 		curr_player = []
 		total_overs = 0
+		total_wickets = 0
 		curr_over = 0.0
 		total_wide = 0
 		total_no = 0
@@ -20,21 +23,20 @@ class Score:
 	def remove_curr_player(self, player):
 
 		try:
+			if self.total_wickets_fall == self.total_wickets:
+				print("Team already all out.")
+				return
 			arr.remove(player)
+			self.total_wickets_fall += 1
 		except Exception:
 			print("player is not playing currently")
+
 
 	def add_total_overs(self, total_overs):
 		self.total_overs = total_overs
 
 
-	def update_curr_over(self):
+	def add_ball() 
 
-		if self.curr_overs > total_overs:
-			return print("Over Finished")
-
-		frac = self.curr_overs - int(self.curr_overs)
-		if frac == 0.5:
-			self.curr_overs = int(self.curr_overs) + 1.0
 
 
