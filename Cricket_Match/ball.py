@@ -3,10 +3,10 @@
 class Ball:
 
 	def __init__(self):
-		run = 0
-		wide = False
-		no = False
-		wicket = False
+		self.run = 0
+		self.wide = False
+		self.no = False
+		self.wicket = False
 	
 	def add_run(self, run):
 
@@ -23,5 +23,3 @@ class Ball:
 
 	def add_no(self):
 		self.no = True
-
-
