@@ -35,8 +35,9 @@ class Score:
 	def add_total_overs(self, total_overs):
 		self.total_overs = total_overs
 
+	
 
-	def add_ball() 
+
 
 
 
