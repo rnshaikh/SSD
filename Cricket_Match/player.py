@@ -6,8 +6,8 @@ class Player:
 		self.name = name
 		self.score = 0
 		self.ball_faced = 0
-		self.fours = 0
-		self.sixes = 0
+		self.no_fours = 0
+		self.no_sixes = 0
 		self.no_ones = 0
 		self.no_twos = 0
 		self.no_threes= 0
