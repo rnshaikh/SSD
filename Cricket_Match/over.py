@@ -12,6 +12,11 @@ class Over:
 		self.total_no_ball = 0
 		self.total_wide_ball = 0
 		self.total_wickets = 0
+		self.player = None
+
+
+	def add_player(self, player):
+		self.player = player
 
 	def add_ball(self, b):
 

@@ -11,7 +11,7 @@ class Player:
 		self.no_ones = 0
 		self.no_twos = 0
 		self.no_threes= 0
-
+		
 
 	def add_score(self, score):
 

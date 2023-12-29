@@ -1,3 +1,4 @@
+import random
 
 
 class Team:
@@ -11,7 +12,7 @@ class Team:
 		self.total_wickets = 0
 		self.total_wicket_fallen = 0
 		self.total_score = 0
-		self.is_batting = False
+		self.is_batting = False 
 		self.current_batsman = None
 		self.strike_batsman = None
 
@@ -26,6 +27,11 @@ class Team:
 			return
 		self.players.append(player)
 
+	def get_player(self):
+		
+		num = random.randint(0, self.no_of_player-1)
+		return self.players[num]
+
 
 	def initialized_batsman(self):
 
@@ -33,7 +39,6 @@ class Team:
 		self.next_batsman+=1
 		self.current_batsman = self.players[self.next_batsman]
 		
-	
 	def change_batting(self):
 		self.is_batting = not self.is_batting
 
@@ -52,9 +57,6 @@ class Team:
 			print("Invalid Score")
 			return
 		self.total_score += score
-
-	def update_batting(self):
-		self.is_batting = not self.is_batting
 
 	def change_strike_after_over(self):
 		self.current_batsman, self.strike_batsman = self.strike_batsman, self.current_batsman

@@ -14,7 +14,7 @@ class Status(Enum):
 
 class Result(Enum):
 
-	WON = "Won"
+	WIN = "Win"
 	DRAW = "Draw"
 
 
@@ -26,6 +26,7 @@ class Match:
 		self.total_wickets = 0
 		self.total_overs = 0
 		self.overs = []
+		self.previous_batting_team = None
 		self.current_batting_team = None
 		self.winning_team = None
 		self.match_status = Status.NOT_STARTED.value
@@ -45,10 +46,13 @@ class Match:
 
 		if self.current_batting_team == self.team1:
 			self.current_batting_team = self.team2
+			self.previous_batting_team = self.team1
 			self.current_batting_team.initialized_batsman()
 		else:
 			self.current_batting_team = self.team1
+			self.previous_batting_team = self.team2
 			self.current_batting_team.initialized_batsman()
+
 
 	def set_current_batting_team(self, team):
 		self.current_batting_team = team
@@ -67,13 +71,25 @@ class Match:
 		self.check_winning_team()
 		self.display_result()
 
+	def append_over_to_player(self, over):
+
+		team = None
+		if self.current_batting_team == self.team1:
+			team = self.team2
+		else:
+			team = self.team1
+
+		player = team.get_player()
+		over.add_player(player)
+
 
 	def start_match(self):
 		for i in range(0, self.total_overs):
 			j = 0
 			over = Over()
 			all_wicket = False
-
+			win = False
+			self.append_over_to_player(over)
 			print("Over: %i" %(i))
 			while j < 6:
 				run = input("")
@@ -81,12 +97,19 @@ class Match:
 
 				if run in ["Wd", "N"]:
 					self.current_batting_team.update_score(1)
+					if self.previous_batting_team and self.current_batting_team.total_score > self.previous_batting_team.total_score:
+						win = True
+						break
 
 				elif run not in ["Wd", "N"] and run != "W":
 					self.current_batting_team.update_score(int(run))
 					self.current_batting_team.strike_batsman.add_score(int(run))
 					if int(run) % 2 != 0:
 						self.current_batting_team.change_strike_after_over()
+
+					if self.previous_batting_team and self.current_batting_team.total_score > self.previous_batting_team.total_score:
+						win = True
+						break
 					j +=1
 					
 				elif run  == "W":
@@ -99,7 +122,7 @@ class Match:
 						break 
 					j = j+1
 
-			if all_wicket:
+			if all_wicket or win:
 				self.overs.append(over)
 				self.display_score_card()
 				break
@@ -111,6 +134,7 @@ class Match:
 
 	def check_winning_team(self):
 
+
 		if self.team1.total_score > self.team2.total_score:
 			self.winning_team = self.team1
 			self.match_result = Result.WIN.value
@@ -120,6 +144,33 @@ class Match:
 		else:
 			self.winning_team = None
 			self.match_result = Result.DRAW.value
+
+	def print_overs_stat(self):
+
+		ballers = {}
+		for over in self.overs:
+			if not over.player.name in ballers:
+				ballers[over.player.name] = []
+			ballers[over.player.name].append(over)
+
+		print("name overs runs wickets")
+
+		for baller in ballers:
+			total_run = 0
+			total_wicket = 0
+			total_overs = 0
+			for over in ballers[baller]:
+				total_run += over.total_run
+				total_wicket += over.total_wickets
+				total_overs += over.total_ball_bowled
+
+			temp = total_overs//6
+			rem = total_overs%6
+
+			print("{name} {overs} {runs} {wickets}".format(name=baller, overs=str(temp)+'.'+str(rem),
+														   runs=total_run, wickets=total_wicket))
+
+
 
 	def display_score_card(self):
 		
@@ -135,6 +186,10 @@ class Match:
 																   sixes=player.no_sixes,
 																   ball_faced=player.ball_faced,
 																   ))
+
+		print("Overs: ")
+		self.print_overs_stat()
+
 		print("total : {total}/ {wicket_fallen} - {overs}/{total_overs}".format(
 						total=self.current_batting_team.total_score, 
 						wicket_fallen=self.current_batting_team.total_wicket_fallen,
@@ -149,34 +204,16 @@ class Match:
 
 		if self.winning_team:
 
-			if self.current_batting_team:
+			if self.current_batting_team == self.winning_team:
 				print("team {team} won by {wickets} wickets".format(team=self.current_batting_team.name,
 															 wickets=self.current_batting_team.total_wickets-
 															 		 self.current_batting_team.total_wicket_fallen))
 			else:
 				team = self.current_batting_team
-				if self.current_batting_team == team1:
-					team = team2
+				if self.current_batting_team == self.team1:
+					team = self.team2
 				else:
-					team = team1
+					team = self.team1
 				print("team {team} won by {run}".format(team=team.name, 
-														run=team.total_score-self.current_batting_team.total_score))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+														run=(team.total_score-self.current_batting_team.total_score)+1))
 

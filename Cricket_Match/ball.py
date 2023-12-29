@@ -13,7 +13,7 @@ class Ball:
 		if run not in [1, 2, 3, 4, 6]:
 			print("Invalid Score")
 			return
-		self.run += 1
+		self.run += run
 
 	def add_wide(self):
 		self.wide = True
