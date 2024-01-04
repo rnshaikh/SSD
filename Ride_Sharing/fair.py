@@ -1,7 +1,16 @@
+from abc import ABC
+
 from match import calculate_ecd
 
 
-class Fair:
+class BaseFair(ABC):
+
+	def calculate(self):
+		pass
+
+
+
+class ECDFair(BaseFair):
 
 	def __init__(self):
 		self.base = 50
@@ -11,10 +20,11 @@ class Fair:
 
 	def calculate(self, ride):
 
-		dist = calculate_ecd(ride['start_x_co'], ride['start_y_co'],
-							 ride['dest_x_co'], ride['dest_y_co'])
+		dist = calculate_ecd(ride.start_x_co, ride.start_y_co,
+							 ride.dest_x_co, ride.dest_y_co)
 
-		fair = self.base + (dist * self.per_km) + (ride['time_taken'] * 2)
+		fair = self.base + (dist * self.per_km) + (ride.time_taken * 2)
 		service_tax = self.service_tax * fair 
 		fair = fair + service_tax
-		return fair
+		print("fai", fair)
+		return round(fair, 2)
