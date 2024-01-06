@@ -7,6 +7,7 @@ def calculate_ecd(start_x_co, start_y_co, end_x_co, end_y_co):
 
 	ans = (end_x_co - start_x_co) ** 2 + (end_y_co - start_y_co) ** 2 
 	ans = math.sqrt(ans)
+	ans = math.ceil(ans*100)/100
 	return ans
 
 
