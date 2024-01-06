@@ -14,8 +14,6 @@ class ElectionSystem:
     def calculate_pm(self):
 
         hash_map = []
-        import pdb
-        pdb.set_trace()
         for key in self.party_wise_constituency:
             heapq.heappush(hash_map, (self.party_wise_constituency[key]['count'],
                                       self.party_wise_constituency[key]['vote_percentage'],
