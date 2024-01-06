@@ -42,7 +42,8 @@ class RideSharing:
 
 		match_drivers = self.EcMatch.match_driver(rider, self.drivers)
 		rider.add_match_driver(match_drivers)
-
+		match_drivers = rider.get_match_drivers()
+		
 		if len(match_drivers):
 			ans = ""
 			for driver in match_drivers:
@@ -64,9 +65,9 @@ class RideSharing:
 		if not rider.match_done:
 			print("MATCH_IS_NOT_HAPPEND")
 
-		match_drivers = rider.get_match_driver()
+		match_driver_id = rider.get_match_driver(n)
 
-		if len(match_drivers) < n:
+		if match_driver_id == -1:
 			print("INVALID_RIDE")
 			return
 
@@ -74,14 +75,13 @@ class RideSharing:
 			print("INVALID RIDE")
 			return 
 
-		dis, match_driver = match_drivers[n-1]
-
-		if not self.drivers[match_driver].is_available():
+		match_driver = self.drivers.get(match_driver_id, None)
+		if not match_driver or not match_driver.is_available():
 			print("INVALID_RIDE")
 			return
-
-		ride_obj = Ride(ride_id, rider, self.drivers[match_driver], rider.x_co, rider.y_co)
-		self.drivers[match_driver].update_available()
+			
+		ride_obj = Ride(ride_id, rider, match_driver, rider.x_co, rider.y_co)
+		match_driver.update_available()
 
 		self.rides[ride_id] = ride_obj
 		print("RIDE_STARTED {ride_id}".format(ride_id = ride_id))
@@ -119,5 +119,5 @@ class RideSharing:
 		ride.add_fair(fair)
 
 		print("BILL {ride_id} {driver_id} {fair}".format(ride_id=ride_id, driver_id=ride.driver.id,
-														 fair=ride.fair))
+														 fair="{:.2f}".format(ride.fair)))
 
