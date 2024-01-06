@@ -1,4 +1,5 @@
 
+from heapq import heappush, heappop
 
 class Rider:
 
@@ -14,6 +15,37 @@ class Rider:
 		self.match_drivers = match_drivers
 		self.match_done = True
 
-	def get_match_driver(self):
-		return self.match_drivers
+	def get_match_drivers(self):
+
+		temp = []
+
+		while self.match_drivers:
+			temp.append(heappop(self.match_drivers))
+
+		for temp_driver in temp:
+			heappush(self.match_drivers, temp_driver)
+		return temp 
+
+
+	def get_match_driver(self, n):
+		
+		if len(self.match_drivers) < n:
+			return -1
+
+		temp = []
+		dr = None
+		while n > 0:
+			driver = heappop(self.match_drivers)
+			dr = driver
+			temp.append(driver)
+			n = n-1
+
+		for temp_driver in temp:
+			heappush(self.match_drivers, temp_driver)
+
+		if dr:
+			return dr[1] 
+		else:
+			return -1
+
 
