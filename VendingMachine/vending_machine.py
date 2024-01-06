@@ -28,8 +28,7 @@ class VendingMachine:
         self.state.insert_coin(amount)
 
     def press_button(self, isle_no):
-        import pdb
-        pdb.set_trace()
+        
         product, change = self.state.press_button(isle_no)
         self.state.dispense(product, change)
 
