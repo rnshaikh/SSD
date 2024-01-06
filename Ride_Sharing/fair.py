@@ -1,3 +1,5 @@
+import math
+
 from abc import ABC
 
 from match import calculate_ecd
@@ -26,5 +28,6 @@ class ECDFair(BaseFair):
 		fair = self.base + (dist * self.per_km) + (ride.time_taken * 2)
 		service_tax = self.service_tax * fair 
 		fair = fair + service_tax
-		print("fai", fair)
-		return round(fair, 2)
+		fair = math.ceil(fair*100)/100
+		return fair
+		
