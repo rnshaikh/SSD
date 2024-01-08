@@ -1,9 +1,9 @@
 
 import sys
 
-from driver import Driver
-from rider import Rider
-from ride_sharing  import RideSharing
+from src.driver import Driver
+from src.rider import Rider
+from src.ride_sharing  import RideSharing
 
 
 def main():

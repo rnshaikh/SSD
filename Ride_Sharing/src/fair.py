@@ -2,7 +2,7 @@ import math
 
 from abc import ABC
 
-from match import calculate_ecd
+from src.match import calculate_ecd
 
 
 class BaseFair(ABC):

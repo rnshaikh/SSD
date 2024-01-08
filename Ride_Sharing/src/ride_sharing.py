@@ -1,11 +1,11 @@
 import time
-from rider import Rider
-from driver import Driver
+from src.rider import Rider
+from src.driver import Driver
 
-from ride import Ride
+from src.ride import Ride
 
-from match import EcMatch
-from fair import ECDFair
+from src.match import EcMatch
+from src.fair import ECDFair
 
 
 
