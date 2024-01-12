@@ -1,3 +1,4 @@
+import conf
 from enum import Enum
 
 
@@ -19,8 +20,8 @@ class Ride:
 		self.start_y_co = start_y_co
 		self.dest_x_co = None
 		self.dest_x_co = None
-		self.time_taken = 0
-		self.fair = 0
+		self.time_taken = conf.ZERO_INIT
+		self.fair = conf.ZERO_INIT
 		self.status = Status.STARTED.value
 
 

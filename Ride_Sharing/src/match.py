@@ -26,7 +26,7 @@ class EcMatch(Match):
 
 		for driver in drivers:
 			ans = calculate_ecd(rider.x_co,rider.y_co, drivers[driver].x_co, drivers[driver].y_co)
-			if ans <= 5:
+			if ans <= conf.MAX_DRIVER_SHOW:
 				heappush(match_drivers, (ans, driver))
 		return match_drivers
 
