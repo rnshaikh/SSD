@@ -3,7 +3,19 @@ import sys
 
 from src.driver import Driver
 from src.rider import Rider
+import conf
 from src.ride_sharing  import RideSharing
+
+
+def format_params(sp_str, param_count):
+
+	params = []
+	for i in range(1, param_count+1):
+		param = sp_str[i].strip()
+		if param.isnumeric():
+			param = int(param)
+		params.append(param)
+	return params
 
 
 def main():
@@ -15,26 +27,20 @@ def main():
 	for query in fs:
 
 		sp_str = query.split(" ")
-		
-		if sp_str[0] == "ADD_DRIVER":
-			driver_obj = Driver(sp_str[1].strip(), int(sp_str[2].strip()), int(sp_str[3].strip()))
-			ride_sharing.add_driver(driver_obj)
+		action_info = conf.COMMANDS.get(sp_str[0], None)
 
-		elif sp_str[0] == "ADD_RIDER":
-			rider_obj = Rider(sp_str[1].strip(), int(sp_str[2].strip()), int(sp_str[3].strip()))
-			ride_sharing.add_rider(rider_obj)
+		if action_info and action_info.get('obj', None):
+			param_count = action_info.get('param_count')
+			params = format_params(sp_str, param_count)
+			obj = action_info.get('obj')(*params)
+			action = action_info['action']
+			getattr(ride_sharing, action)(obj)
 
-		elif sp_str[0] == "MATCH":
-			ride_sharing.match_driver(sp_str[1].strip())
-
-		elif sp_str[0] == "START_RIDE":
-			ride_sharing.start_ride(sp_str[1].strip(), int(sp_str[2].strip()), sp_str[3].strip())
-
-		elif sp_str[0] == "STOP_RIDE":
-			ride_sharing.stop_ride(sp_str[1].strip(), int(sp_str[2].strip()), int(sp_str[3].strip()), int(sp_str[4].strip()))
-
-		elif sp_str[0] == "BILL":
-			ride_sharing.get_fair(sp_str[1].strip())
+		if action_info and not action_info.get('obj', None):
+			param_count = action_info.get('param_count')
+			params = format_params(sp_str, param_count)
+			action = action_info['action']
+			getattr(ride_sharing, action)(*params)
 
 
 if __name__ == "__main__":

@@ -1,12 +1,12 @@
 import time
+
 from src.rider import Rider
 from src.driver import Driver
-
 from src.ride import Ride
-
 from src.match import EcMatch
 from src.fair import ECDFair
-
+from src.validator import (validate_start_ride, validate_rider, validate_match_driver_id,
+						   validate_match_driver, validate_ride_id_already_exist, check_match_driver)
 
 
 class RideSharing:
@@ -35,51 +35,23 @@ class RideSharing:
 	def match_driver(self, rider_id):
 
 		rider = self.riders.get(rider_id, None)
-
-		if not rider:
-			print("INVALID_RIDER")
-			return
-
+		validate_rider(rider)
 		match_drivers = self.EcMatch.match_driver(rider, self.drivers)
 		rider.add_match_driver(match_drivers)
 		match_drivers = rider.get_match_drivers()
-		
-		if len(match_drivers):
-			ans = ""
-			for driver in match_drivers:
-				ans += driver[1]
-				ans += " "
-			print("DRIVERS_MATCHED  {ans}".format(ans=ans))
-		else:
-			print("NO_DRIVERS_AVAILABLE")
+		check_match_driver(match_drivers)
 
 
 	def start_ride(self, ride_id, n, rider_id):
-		
-		rider = self.riders.get(rider_id, None)
-
-		if not rider:
-			print("INVALID_RIDER")
-			return
-
-		if not rider.match_done:
-			print("MATCH_IS_NOT_HAPPEND")
-
-		match_driver_id = rider.get_match_driver(n)
-
-		if match_driver_id == -1:
-			print("INVALID_RIDE")
-			return
-
-		if ride_id in self.rides:
-			print("INVALID RIDE")
-			return 
-
-		match_driver = self.drivers.get(match_driver_id, None)
-		if not match_driver or not match_driver.is_available():
-			print("INVALID_RIDE")
-			return
 			
+		validate_ride_id_already_exist(ride_id, self.rides)
+		rider = self.riders.get(rider_id, None)
+		validate_rider(rider)
+		validate_start_ride(rider)
+		match_driver_id = rider.get_match_driver(n)
+		validate_match_driver_id(match_driver_id)
+		match_driver = self.drivers.get(match_driver_id, None)
+		validate_match_driver(match_driver)	
 		ride_obj = Ride(ride_id, rider, match_driver, rider.x_co, rider.y_co)
 		match_driver.update_available()
 
@@ -98,7 +70,7 @@ class RideSharing:
 
 		ride.stop_ride(x_co, y_co, time_taken)
 		ride.driver.update_available()
-		print("RIDE STOPPED {ride_id}".format(ride_id=ride_id))
+		print("RIDE_STOPPED {ride_id}".format(ride_id=ride_id))
 
 
 	def get_fair(self, ride_id):
