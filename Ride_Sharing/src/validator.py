@@ -1,3 +1,4 @@
+import conf
 
 
 def validate_rider(rider):
@@ -14,7 +15,7 @@ def validate_start_ride(rider):
 
 def validate_match_driver_id(match_driver_id):
 
-	if match_driver_id == -1:
+	if match_driver_id == conf.NEGATIVE_INIT:
 		print("INVALID_RIDE")
 		return
 
