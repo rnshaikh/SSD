@@ -2,7 +2,7 @@ import time
 
 from src.rider import Rider
 from src.driver import Driver
-from src.ride import Ride
+from src.ride import Ride, Status
 from src.match import EcMatch
 from src.fair import ECDFair
 from src.validator import (validate_start_ride, validate_rider, validate_match_driver_id,
@@ -34,29 +34,38 @@ class RideSharing:
 
 	def match_driver(self, rider_id):
 
-		rider = self.riders.get(rider_id, None)
-		validate_rider(rider)
-		match_drivers = self.EcMatch.match_driver(rider, self.drivers)
-		rider.add_match_driver(match_drivers)
-		match_drivers = rider.get_match_drivers()
-		check_match_driver(match_drivers)
+		try:
+
+			rider = self.riders.get(rider_id, None)
+			validate_rider(rider)
+			match_drivers = self.EcMatch.match_driver(rider, self.drivers)
+			rider.add_match_driver(match_drivers)
+			match_drivers = rider.get_match_drivers()
+			check_match_driver(match_drivers)
+
+		except Exception as e:
+			print(e)
 
 
 	def start_ride(self, ride_id, n, rider_id):
-			
-		validate_ride_id_already_exist(ride_id, self.rides)
-		rider = self.riders.get(rider_id, None)
-		validate_rider(rider)
-		validate_start_ride(rider)
-		match_driver_id = rider.get_match_driver(n)
-		validate_match_driver_id(match_driver_id)
-		match_driver = self.drivers.get(match_driver_id, None)
-		validate_match_driver(match_driver)	
-		ride_obj = Ride(ride_id, rider, match_driver, rider.x_co, rider.y_co)
-		match_driver.update_available()
+		
+		try:	
+			validate_ride_id_already_exist(ride_id, self.rides)
+			rider = self.riders.get(rider_id, None)
+			validate_rider(rider)
+			validate_start_ride(rider)
+			match_driver_id = rider.get_match_driver(n)
+			validate_match_driver_id(match_driver_id)
+			match_driver = self.drivers.get(match_driver_id, None)
+			validate_match_driver(match_driver)	
+			ride_obj = Ride(ride_id, rider, match_driver, rider.x_co, rider.y_co)
+			match_driver.update_available()
 
-		self.rides[ride_id] = ride_obj
-		print("RIDE_STARTED {ride_id}".format(ride_id = ride_id))
+			self.rides[ride_id] = ride_obj
+			print("RIDE_STARTED {ride_id}".format(ride_id = ride_id))
+
+		except Exception as e:
+			print(e)
 
 
 	def stop_ride(self, ride_id, x_co, y_co, time_taken):
@@ -65,6 +74,10 @@ class RideSharing:
 		ride = self.rides.get(ride_id, None)
 
 		if not ride:
+			print("INVALID_RIDE")
+			return
+
+		if ride.status == Status.COMPLETED.value:
 			print("INVALID_RIDE")
 			return
 
@@ -87,7 +100,6 @@ class RideSharing:
 
 		fair_obj = ECDFair()
 		fair = fair_obj.calculate(ride)
-		
 		ride.add_fair(fair)
 
 		print("BILL {ride_id} {driver_id} {fair}".format(ride_id=ride_id, driver_id=ride.driver.id,
