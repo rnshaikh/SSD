@@ -20,3 +20,16 @@ def calculate_ecd(start_x_co, start_y_co, end_x_co, end_y_co):
     ans = my_round(ans, conf.TWO)
     ans = (ans*conf.PERC_DIVISOR)/conf.PERC_DIVISOR
     return ans
+
+
+def format_params(sp_str, param_count):
+
+    params = []
+    for i in range(1, param_count+1):
+        param = sp_str[i].strip()
+        try:
+            param = int(param)
+        except ValueError:
+            pass
+        params.append(param)
+    return params
