@@ -3,8 +3,7 @@ import conf
 
 from abc import ABC, abstractmethod
 
-from src.match import calculate_ecd
-from src.utils import my_round
+from src.utils import my_round, calculate_ecd
 
 
 class BaseFair(ABC):

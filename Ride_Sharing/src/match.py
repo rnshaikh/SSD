@@ -2,17 +2,7 @@ import math
 import conf
 
 from heapq import heappush, heappop
-from src.utils import my_round
-
-
-
-def calculate_ecd(start_x_co, start_y_co, end_x_co, end_y_co):
-	
-	ans = (end_x_co - start_x_co) ** conf.TWO + (end_y_co - start_y_co) ** conf.TWO
-	ans = math.sqrt(ans)
-	ans = my_round(ans, conf.TWO)
-	ans = (ans*conf.PERC_DIVISOR)/conf.PERC_DIVISOR
-	return ans
+from src.utils import my_round, calculate_ecd
 
 
 class Match:
