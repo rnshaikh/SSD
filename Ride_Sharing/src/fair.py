@@ -1,16 +1,29 @@
 import math
 import conf
 
-from abc import ABC
+from abc import ABC, abstractmethod
 
 from src.match import calculate_ecd
+from src.utils import my_round
 
 
 class BaseFair(ABC):
 
+	@abstractmethod
 	def calculate(self):
 		pass
 
+	@abstractmethod
+	def calculate_distance_fair(self):
+		pass
+
+	@abstractmethod
+	def calculate_time_taken_fair(self):
+		pass
+
+	@abstractmethod
+	def calculate_service_tax(self):
+		pass
 
 
 class ECDFair(BaseFair):
@@ -24,27 +37,21 @@ class ECDFair(BaseFair):
 
 	def calculate_distance_fair(self, dist):
 
-		decimal_part = dist % 1
-		decimal_part = math.ceil(decimal_part*conf.PERC_DIVISOR)/conf.PERC_DIVISOR
-		int_part = int(dist)
-
-		result = int_part * self.per_km
-		result += (decimal_part*self.per_km)
-		print("dist result ", result)
+		result = dist * self.per_km
 		return result
 
 
 	def calculate_time_taken_fair(self, ride):
 
 		time_fair = (ride.time_taken * self.per_minute)
-		print("tim", time_fair)
 		return time_fair
 
 
 	def calculate_service_tax(self, fair):
 
 		service_tax = (self.service_tax * fair)
-		print("service", service_tax)
+		#print("service", service_tax)
+		service_tax = my_round(service_tax, conf.TWO) 
 		return service_tax
 
 
@@ -53,21 +60,13 @@ class ECDFair(BaseFair):
 		dist = calculate_ecd(ride.start_x_co, ride.start_y_co,
 							 ride.dest_x_co, ride.dest_y_co)
 
-		print("dist", dist)
-
 		distance_fair = self.calculate_distance_fair(dist)
-		print("dist fair", distance_fair)
-
 		time_taken_fair = self.calculate_time_taken_fair(ride)
-		print("time taken fair", time_taken_fair)
-
 		fair = self.base + distance_fair + time_taken_fair
-		#fair = math.ceil(fair*conf.PERC_DIVISOR)/conf.PERC_DIVISOR
-
-		print("result before service", fair)
-
 		service_tax = self.calculate_service_tax(fair)
+		fair = my_round(fair, conf.TWO)
 		fair = fair + service_tax
-		fair = math.ceil(fair*conf.PERC_DIVISOR)/conf.PERC_DIVISOR
+		fair = my_round(fair, conf.TWO)
+		fair = (fair*conf.PERC_DIVISOR)/conf.PERC_DIVISOR
 		return fair
 		
