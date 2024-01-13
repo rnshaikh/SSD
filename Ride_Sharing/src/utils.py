@@ -3,14 +3,14 @@ import conf
 
 
 def my_round(val, n):
-    part = val * 10 ** n
+    part = val * conf.TENTH ** n
     delta = part - int(part)
     # always round "away from 0"
-    if delta >= 0.5 or -0.5 < delta <= 0:
+    if delta >= conf.HALF_PART or conf.NEGATIVE_HALF_PART < delta <= conf.ZERO_INIT:
         part = math.ceil(part)
     else:
         part = math.floor(part)
-    return part / (10 ** n) if n >= 0 else part * 10 ** abs(n)
+    return part / (conf.TENTH ** n) if n >= conf.ZERO_INIT else part * conf.TENTH ** abs(n)
 
 
 def calculate_ecd(start_x_co, start_y_co, end_x_co, end_y_co):
