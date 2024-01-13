@@ -6,7 +6,8 @@ from src.ride import Ride, Status
 from src.match import EcMatch
 from src.fair import ECDFair
 from src.validator import (validate_start_ride, validate_rider, validate_match_driver_id,
-						   validate_match_driver, validate_ride_id_already_exist, check_match_driver)
+						   validate_match_driver, validate_ride_id_already_exist, check_match_driver,
+						   validate_rider_already_exist)
 
 
 class RideSharing:
@@ -20,11 +21,12 @@ class RideSharing:
 
 	def add_rider(self, rider):
 
-		if rider.id in self.riders:
-			print("RIDER_ALREADY_EXIST")
-			return
+		try:
+			validate_rider_already_exist(rider, self.riders)
+			self.riders[rider.id] = rider
 
-		self.riders[rider.id] = rider
+		except Exception as e:
+			print(e)
 
 	def add_driver(self, driver):
 

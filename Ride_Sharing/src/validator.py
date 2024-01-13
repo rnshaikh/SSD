@@ -42,3 +42,9 @@ def check_match_driver(match_drivers):
 	else:
 		raise Exception("NO_DRIVERS_AVAILABLE")
 		
+
+def validate_rider_already_exist(rider, riders):
+
+	if rider.id in riders:
+		raise Exception("RIDER_ALREADY_EXIST")
+		
