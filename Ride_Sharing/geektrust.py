@@ -12,8 +12,10 @@ def format_params(sp_str, param_count):
 	params = []
 	for i in range(1, param_count+1):
 		param = sp_str[i].strip()
-		if param.isnumeric():
+		try:
 			param = int(param)
+		except ValueError:
+			pass
 		params.append(param)
 	return params
 
