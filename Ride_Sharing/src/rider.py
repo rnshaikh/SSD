@@ -1,9 +1,6 @@
 
 from heapq import heappush, heappop
 
-ZERO_INIT = 0
-NEGATIVE_INIT = -1
-ONE_INIT = 1
 
 class Rider:
 
@@ -33,23 +30,25 @@ class Rider:
 
 	def get_match_driver(self, n):
 		
+		import conf
+
 		if len(self.match_drivers) < n:
-			return NEGATIVE_INIT
+			return conf.NEGATIVE_INIT
 
 		temp = []
 		dr = None
-		while n > ZERO_INIT:
+		while n > conf.ZERO_INIT:
 			driver = heappop(self.match_drivers)
 			dr = driver
 			temp.append(driver)
-			n = n-ONE_INIT
+			n = n-conf.ONE_INIT
 
 		for temp_driver in temp:
 			heappush(self.match_drivers, temp_driver)
 
 		if dr:
-			return dr[ONE_INIT] 
+			return dr[conf.ONE_INIT] 
 		else:
-			return NEGATIVE_INIT
+			return conf.NEGATIVE_INIT
 
 
