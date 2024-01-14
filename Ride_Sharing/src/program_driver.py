@@ -12,7 +12,7 @@ def program_driver(file_path):
 	for query in fs:
 
 		sp_str = query.split(" ")
-		action_info = conf.COMMANDS.get(sp_str[0], None)
+		action_info = conf.COMMANDS.get(sp_str[conf.ZERO_INIT], None)
 
 		if action_info and action_info.get('obj', None):
 			param_count = action_info.get('param_count')
