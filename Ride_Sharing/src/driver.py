@@ -7,7 +7,6 @@ class Driver:
 		self.y_co = y_co
 		self.available = True
 
-
 	def is_available(self):
 
 		return self.available 
