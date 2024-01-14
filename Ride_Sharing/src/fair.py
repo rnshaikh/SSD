@@ -49,7 +49,6 @@ class ECDFair(BaseFair):
 	def calculate_service_tax(self, fair):
 
 		service_tax = (self.service_tax * fair)
-		#print("service", service_tax)
 		service_tax = my_round(service_tax, conf.TWO) 
 		return service_tax
 
