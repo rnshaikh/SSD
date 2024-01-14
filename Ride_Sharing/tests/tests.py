@@ -1,6 +1,7 @@
 import io
 import sys
 import unittest
+import conf
 
 from geektrust import main
 
@@ -9,7 +10,7 @@ class TestRideSharing(unittest.TestCase):
 
 
 	def test_ride_sharing1(self):
-		sys.argv[1] = 'sample_input\\input2.txt'
+		sys.argv[conf.ONE_INIT] = 'sample_input\\input2.txt'
 		capture_output = io.StringIO()
 		sys.stdout = capture_output
 		out = main()
@@ -21,7 +22,7 @@ class TestRideSharing(unittest.TestCase):
 
 
 	def test_ride_sharing2(self):
-		sys.argv[1] = 'sample_input\\input1.txt'
+		sys.argv[conf.ONE_INIT] = 'sample_input\\input1.txt'
 		capture_output = io.StringIO()
 		sys.stdout = capture_output
 		out = main()
@@ -33,7 +34,7 @@ class TestRideSharing(unittest.TestCase):
 
 
 	def test_invalid_ride_sharing2(self):
-		sys.argv[1] = 'sample_input\\input3.txt'
+		sys.argv[conf.ONE_INIT] = 'sample_input\\input3.txt'
 		capture_output = io.StringIO()
 		sys.stdout = capture_output
 		out = main()
