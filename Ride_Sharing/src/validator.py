@@ -37,7 +37,7 @@ def check_match_driver(match_drivers):
 	if len(match_drivers):
 		ans = ""
 		for driver in match_drivers:
-			ans += driver[1]
+			ans += driver[conf.ONE_INIT]
 			ans += " "
 		raise Exception("DRIVERS_MATCHED  {ans}".format(ans=ans))
 	else:
