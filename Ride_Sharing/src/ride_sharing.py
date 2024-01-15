@@ -3,12 +3,12 @@ import time
 from src.rider import Rider
 from src.driver import Driver
 from src.ride import Ride
-from src.match import EcMatch
 from src.fair import ECDFair
 from src.validator import (validate_start_ride, validate_rider, validate_match_driver_id,
 						   validate_match_driver, validate_ride_id_already_exist, check_match_driver,
 						   validate_rider_already_exist, check_ride_id_is_not_exist, 
 						   check_ride_is_completed, check_ride_exists, check_ride_completed)
+from src.utils import match_driver
 
 
 class RideSharing:
@@ -18,7 +18,6 @@ class RideSharing:
 		self.rides = {}
 		self.riders = {}
 		self.drivers = {}
-		self.ec_match_obj = EcMatch()
 		self.fair_obj = ECDFair()
 
 	def add_rider(self, rider):
@@ -42,7 +41,7 @@ class RideSharing:
 
 			rider = self.riders.get(rider_id, None)
 			validate_rider(rider)
-			match_drivers = self.ec_match_obj.match_driver(rider, self.drivers)
+			match_drivers = match_driver(rider, self.drivers)
 			rider.add_match_driver(match_drivers)
 			match_drivers = rider.get_match_drivers()
 			check_match_driver(match_drivers)
