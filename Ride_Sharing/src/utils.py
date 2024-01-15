@@ -1,6 +1,8 @@
 import math
 import conf
 
+from heapq import heappush, heappop
+
 
 def my_round(val, n):
     part = val * conf.TENTH ** n
@@ -25,7 +27,7 @@ def calculate_ecd(start_x_co, start_y_co, end_x_co, end_y_co):
 def format_params(sp_str, param_count):
 
     params = []
-    for i in range(1, param_count+1):
+    for i in range(conf.ONE_INIT, param_count+conf.ONE_INIT):
         param = sp_str[i].strip()
         try:
             param = int(param)
@@ -33,3 +35,32 @@ def format_params(sp_str, param_count):
             pass
         params.append(param)
     return params
+
+
+
+def push_driver(match_drivers, temp):
+    for temp_driver in temp:
+        heappush(match_drivers, temp_driver)
+
+
+def push_match_driver(match_drivers, driver, ans):
+
+    if ans <= conf.MAX_DRIVER_SHOW:
+        heappush(match_drivers, (ans, driver))
+
+
+def check_driver_within_range(rider, drivers, driver, match_drivers):
+
+    if drivers[driver].is_available():
+        ans = calculate_ecd(rider.x_co,rider.y_co, drivers[driver].x_co, drivers[driver].y_co)
+        push_match_driver(match_drivers, driver, ans)
+
+
+def match_driver(rider, drivers):
+
+    match_drivers = []
+    for driver in drivers:
+        check_driver_within_range(rider, drivers, driver, match_drivers)
+
+    return match_drivers
+
