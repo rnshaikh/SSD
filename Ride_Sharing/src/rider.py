@@ -1,6 +1,8 @@
 
 from heapq import heappush, heappop
 
+from src.utils import push_driver
+
 
 class Rider:
 
@@ -23,8 +25,7 @@ class Rider:
 		while self.match_drivers:
 			temp.append(heappop(self.match_drivers))
 
-		for temp_driver in temp:
-			heappush(self.match_drivers, temp_driver)
+		push_driver(self.match_drivers, temp)
 		return temp 
 
 
@@ -43,12 +44,10 @@ class Rider:
 			temp.append(driver)
 			n = n-conf.ONE_INIT
 
-		for temp_driver in temp:
-			heappush(self.match_drivers, temp_driver)
+		push_driver(self.match_drivers, temp)
 
 		if dr:
 			return dr[conf.ONE_INIT] 
-		else:
-			return conf.NEGATIVE_INIT
+		return conf.NEGATIVE_INIT
 
 
