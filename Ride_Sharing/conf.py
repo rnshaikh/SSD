@@ -36,6 +36,9 @@ COMMANDS = {
 
 }
 
+TRUE=True
+FALSE=False
+NONE=None
 BASE_PRICE = 50
 PER_KM = 6.5
 PER_MINUTE = 2
@@ -49,3 +52,7 @@ TENTH = 10
 HALF_PART = 0.5
 NEGATIVE_HALF_PART = -0.5
 ONE_INIT = 1
+
+TEST_INPUT_FILE_ONE = "sample_input\\input1.txt"
+TEST_INPUT_FILE_TWO = "sample_input\\input2.txt"
+TEST_INPUT_FILE_THREE = "sample_input\\input3.txt"
