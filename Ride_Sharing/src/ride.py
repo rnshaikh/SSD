@@ -8,7 +8,6 @@ class Status(Enum):
 	COMPLETED = "COMPLETED"
 
 
-
 class Ride:
 
 	def __init__(self, ride_id, rider, driver, start_x_co, start_y_co):
@@ -18,8 +17,8 @@ class Ride:
 		self.driver = driver
 		self.start_x_co = start_x_co
 		self.start_y_co = start_y_co
-		self.dest_x_co = None
-		self.dest_x_co = None
+		self.dest_x_co = conf.NONE
+		self.dest_x_co = conf.NONE
 		self.time_taken = conf.ZERO_INIT
 		self.fair = conf.ZERO_INIT
 		self.status = Status.STARTED.value
