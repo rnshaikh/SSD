@@ -7,7 +7,7 @@ from heapq import heappush, heappop
 def my_round(val, n):
     part = val * conf.TENTH ** n
     delta = part - int(part)
-    # always round "away from 0"
+    
     if delta >= conf.HALF_PART or conf.NEGATIVE_HALF_PART < delta <= conf.ZERO_INIT:
         part = math.ceil(part)
     else:
