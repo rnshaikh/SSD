@@ -1,3 +1,4 @@
+import conf
 
 from heapq import heappush, heappop
 
@@ -11,12 +12,12 @@ class Rider:
 		self.x_co = x_co
 		self.y_co = y_co
 		self.match_drivers = []
-		self.match_done = False
+		self.match_done = conf.FALSE
 
 
 	def add_match_driver(self, match_drivers):
 		self.match_drivers = match_drivers
-		self.match_done = True
+		self.match_done = conf.TRUE
 
 	def get_match_drivers(self):
 
