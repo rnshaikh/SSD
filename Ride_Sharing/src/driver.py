@@ -1,3 +1,4 @@
+import conf
 
 class Driver:
 
@@ -5,7 +6,7 @@ class Driver:
 		self.id = id
 		self.x_co = x_co
 		self.y_co = y_co
-		self.available = True
+		self.available = conf.TRUE
 
 	def is_available(self):
 
@@ -18,4 +19,3 @@ class Driver:
 	def update_location(self, x_co, y_co):
 		self.x_co = x_co
 		self.y_co = y_co
-
