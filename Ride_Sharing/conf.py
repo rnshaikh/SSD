@@ -56,3 +56,6 @@ ONE_INIT = 1
 TEST_INPUT_FILE_ONE = "sample_input\\input1.txt"
 TEST_INPUT_FILE_TWO = "sample_input\\input2.txt"
 TEST_INPUT_FILE_THREE = "sample_input\\input3.txt"
+TEST_INPUT_FILE_FOUR = "sample_input\\input4.txt"
+TEST_INPUT_FILE_FIVE = "sample_input\\input5.txt"
+TEST_INPUT_FILE_SIX = "sample_input\\input6.txt"
