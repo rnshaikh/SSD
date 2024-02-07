@@ -14,6 +14,11 @@ class Rider:
 		self.match_drivers = []
 		self.match_done = conf.FALSE
 
+	def get_id(self):
+		return self.id
+
+	def get_location(self):
+		return (self.x_co, self.y_co)
 
 	def add_match_driver(self, match_drivers):
 		self.match_drivers = match_drivers
