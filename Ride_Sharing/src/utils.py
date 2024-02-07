@@ -52,7 +52,9 @@ def push_match_driver(match_drivers, driver, ans):
 def check_driver_within_range(rider, drivers, driver, match_drivers):
 
     if drivers[driver].is_available():
-        ans = calculate_ecd(rider.x_co,rider.y_co, drivers[driver].x_co, drivers[driver].y_co)
+        rider_location = rider.get_location()
+        driver_location = drivers[driver].get_location()
+        ans = calculate_ecd(rider_location[0],rider_location[1], driver_location[0], driver_location[1])
         push_match_driver(match_drivers, driver, ans)
 
 
