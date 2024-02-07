@@ -24,7 +24,7 @@ class RideSharing:
 
 		try:
 			validate_rider_already_exist(rider, self.riders)
-			self.riders[rider.id] = rider
+			self.riders[rider.get_id()] = rider
 
 		except Exception as e:
 			print(e)
@@ -33,7 +33,7 @@ class RideSharing:
 
 		if driver.id in self.drivers:
 			print("DRIVER_ALREADY_EXIST")
-		self.drivers[driver.id] = driver
+		self.drivers[driver.get_id()] = driver
 
 	def match_driver(self, rider_id):
 
@@ -60,8 +60,9 @@ class RideSharing:
 			match_driver_id = rider.get_match_driver(n)
 			validate_match_driver_id(match_driver_id)
 			match_driver = self.drivers.get(match_driver_id, None)
-			validate_match_driver(match_driver)	
-			ride_obj = Ride(ride_id, rider, match_driver, rider.x_co, rider.y_co)
+			validate_match_driver(match_driver)
+			rider_location = rider.get_location()
+			ride_obj = Ride(ride_id, rider, match_driver, rider_location[0], rider_location[1])
 			match_driver.update_available()
 
 			self.rides[ride_id] = ride_obj
@@ -93,8 +94,7 @@ class RideSharing:
 			check_ride_is_completed(ride)
 			fair = self.fair_obj.calculate(ride)
 			ride.add_fair(fair)
-
-			print("BILL {ride_id} {driver_id} {fair}".format(ride_id=ride_id, driver_id=ride.driver.id,
+			print("BILL {ride_id} {driver_id} {fair}".format(ride_id=ride_id, driver_id=ride.driver.get_id(),
 															 fair="{:.2f}".format(ride.fair)))
 		except Exception as e:
 			print(e)
