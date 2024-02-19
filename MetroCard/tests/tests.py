@@ -34,3 +34,5 @@ class MetroTest(unittest.TestCase):
 		ans = capture_output.getvalue().strip()
 		self.assertTrue("CENTRAL 200 0\n" in ans)
 		self.assertTrue("AIRPORT 100 100\n" in ans)
+
+
