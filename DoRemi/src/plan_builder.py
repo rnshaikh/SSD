@@ -1,38 +1,40 @@
 import conf
 from src.plan import Plan
-from src.category import StreamingCategory, TopupCategory
+from src.music.factory import music_factory
+from src.video.factory import video_factory
+from src.podcast.factory import podcast_factory
+from src.topup.factory import device_factory
 
 class PlanBuilder:
 
-    def __init__(self, category, plan_type, no_of_month=None):
-        self._plan = self.set_plan(category, plan_type, no_of_month) 
+    streaming = {
+        conf.MUSIC : music_factory,
+        conf.VIDEO : video_factory,
+        conf.PODCAST: podcast_factory
+    }
+
+    def __init__(self, plan_type, category=None):
+        self._plan = self.set_plan(plan_type, category)
 
     @property
     def plan(self):
         return self._plan
 
     def get_streaming_plan(self, category, plan_type):
+        plan_obj = self.streaming.get(category)(plan_type)
+        return plan_obj
         
-        plan_obj = Plan(category, plan_type)
-        plan_obj.month = conf.STREAMING[category][plan_type]["month"]
-        plan_obj.cost = conf.STREAMING[category][plan_type]["cost"]
-        plan_obj.device = conf.INIT_ONE
+    def get_topup_plan(self, plan_type):
+
+        plan_obj = device_factory(plan_type)
         return plan_obj
 
-    def get_topup_plan(self, category, plan_type, no_of_month):
+    def set_plan(self, plan_type, category):
 
-        plan_obj = Plan(category, plan_type)
-        plan_obj.month = no_of_month
-        plan_obj.cost = conf.TOPUP[plan_type]["cost"] * no_of_month
-        plan_obj.device = conf.TOPUP[plan_type]["device"]
-        return plan_obj
-
-    def set_plan(self, category, plan_type, no_of_month):
-
-        if category in StreamingCategory.as_list():
+        if category:
             return self.get_streaming_plan(category, plan_type)
         else:
-            return self.get_topup_plan(category, plan_type, no_of_month)
+            return self.get_topup_plan(plan_type)
 
 
 
