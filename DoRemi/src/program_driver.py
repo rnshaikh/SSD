@@ -3,13 +3,15 @@ import conf
 from src.streaming_app import Subscription
 
 
-
 class ProgramDriver:
 
     def __init__(self):
-        self.subscription = Subscription()
+        self._subscription = Subscription()
 
-
+    @property
+    def subscription(self):
+        return self._subscription
+        
     def start_subscription_handler(self, date):
         error = self.subscription.start_subscription(date)
         if error:
@@ -21,13 +23,12 @@ class ProgramDriver:
             print(error)
 
     def add_topup_handler(self, plan_type, no_of_month):
-        error = self.subscription.add_top_up_subscription("TOPUP", plan_type, no_of_month)
+        error = self.subscription.add_top_up_subscription(plan_type, no_of_month)
         if error:
             print(error)
 
     def print_renewal_info_handler(self):
         ans, cost, error = self.subscription.get_renewal_info()
-
         if error:
             print(error)
             return
@@ -37,19 +38,24 @@ class ProgramDriver:
 
         print(conf.RENEWAL_AMOUNT_STR.format(cost=cost))
 
+
+    def parse_row(self, row):
+
+        row = row.split(" ")
+        row = self.format_params(row)
+        command, params = row[conf.INIT_ZERO], row[conf.INIT_ONE:]
+        if not params:
+            getattr(self, conf.COMMANDS[command])()
+        else:
+            getattr(self, conf.COMMANDS[command])(*params)
+
     
     def parse_file(self, file_path):
 
         with open(file_path, 'r') as fobj:
             for row in fobj:
-                row = row.split(" ")
-                row = self.format_params(row)
-                command, params = row[conf.INIT_ZERO], row[conf.INIT_ONE:]
-                if not params:
-                    getattr(self, conf.COMMANDS[command])()
-                else:
-                    getattr(self, conf.COMMANDS[command])(*params)
-
+                self.parse_row(row)
+        
     @staticmethod
     def format_params(row):
         ans = []
@@ -59,10 +65,5 @@ class ProgramDriver:
                 param = int(param)
                 ans.append(param)
             except:
-                if param:
-                    ans.append(param)
+                ans.append(param)
         return ans
-
-
-
-
