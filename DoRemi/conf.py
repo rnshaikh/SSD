@@ -8,63 +8,32 @@ DUPLICATE_TOPUP = "DUPLICATE_TOPUP"
 INIT_ONE = 1
 INIT_ZERO = 0
 
-STREAMING = {
-    "VIDEO": {
-        "FREE": {
-            "month": 1,
-            "cost": 0
-        },
-        "PERSONAL": {
-            "month": 1,
-            "cost": 200
-        },
-        "PREMIUM":{
-            "month": 3,
-            "cost": 500
-        }
-    },
-    "PODCAST": {
-        "FREE": {
-            "month": 1,
-            "cost": 0
-        },
-        "PERSONAL": {
-            "month": 1,
-            "cost": 100
-        },
-        "PREMIUM":{
-            "month": 3,
-            "cost": 300
-        }    
-    },
-    "MUSIC": {
-        "FREE": {
-            "month": 1,
-            "cost": 0
-        },
-        "PERSONAL": {
-            "month": 1,
-            "cost": 100
-        },
-        "PREMIUM":{
-            "month": 3,
-            "cost": 250
-        }    
-    }
-}
+FREE_MONTH = 1 
+FREE_COST = 0
+PERSONAL_MONTH = 1
+PERSONAL_VIDEO_COST = 200
+PREMIUM_VIDEO_MONTH = 3
+PREMIUM_VIDEO_COST = 500
+PERSONAL_MUSIC_COST = 100
+PREMIUM_MUSIC_MONTH = 3
+PREMIUM_MUSIC_COST = 250
+PERSONAL_PODCAST_COST = 100
+PREMIUM_PODCAST_MONTH = 3
+PREMIUM_PODCAST_COST = 300
+FOUR_DEVICE_COST = 50
+TEN_DEVICE_COST = 100
 
-TOPUP = {
-    "FOUR_DEVICE": {
-        "device": 4,
-        "month": 1,
-        "cost": 50
-    },
-    "TEN_DEVICE": {
-        "device": 10,
-        "month": 1,
-        "cost": 100
-    }
-}
+FREE = "FREE" 
+PERSONAL = "PERSONAL"
+PREMIUM = "PREMIUM"
+
+FOUR_DEVICE = "FOUR_DEVICE"
+TEN_DEVICE = "TEN_DEVICE"
+
+MUSIC = "MUSIC"
+VIDEO = "VIDEO"
+PODCAST = "PODCAST"
+
 
 COMMANDS = {
     "START_SUBSCRIPTION": "start_subscription_handler",
@@ -77,3 +46,5 @@ RENEWAL_REMINDER_STR = "RENEWAL_REMINDER {category} {date}"
 RENEWAL_AMOUNT_STR = "RENEWAL_AMOUNT {cost}"
 
 REMINDER_DAY = 10
+
+DATE_FORMAT = "%d-%m-%Y"
