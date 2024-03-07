@@ -1,0 +1,27 @@
+
+Programme: 
+       Name 
+       Price
+        
+Coupons
+       Name :
+       discount
+
+
+
+
+Fee:
+    cost
+     
+   Enrollement Fee
+         cost
+  
+   Pro Membership Fee
+       cost
+
+
+
+Membership:
+      discounts = {}     
+      ProMemberShip:
+            discounts = {}
