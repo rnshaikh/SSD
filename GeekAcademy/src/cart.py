@@ -17,7 +17,6 @@ class CartUnit:
     def product(self):
         return self._product
     
-
     @property
     def quantity(self):
         return self._quantity
@@ -48,6 +47,7 @@ class Cart:
 
         if not self.coupon:
             self.coupon = coupon
+            return
 
         if self.coupon and self.coupon.discount < coupon.discount:
             self.coupon = coupon
