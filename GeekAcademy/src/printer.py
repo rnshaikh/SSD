@@ -7,7 +7,7 @@ from abc import ABC, abstractmethod
 class Printer(ABC):
 
     @abstractmethod
-    def print():
+    def print(sel):
         pass
 
 
